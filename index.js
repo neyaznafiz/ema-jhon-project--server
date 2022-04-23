@@ -14,12 +14,17 @@ app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.EMAJHON_USER}:${process.env.EMAJHON_PASS}@cluster0.vbiac.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("emaJhon").collection("product");
-  // perform actions on the collection object
-  console.log('mongodb is connected');
-  client.close();
-});
+
+const run = async()=>{
+try{
+
+}
+finally{
+    
+}
+}
+
+run().catch(console.dir)
 
 
 
