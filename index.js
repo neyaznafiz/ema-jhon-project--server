@@ -16,16 +16,24 @@ app.use(express.json())
 const uri = `mongodb+srv://${process.env.EMAJHON_USER}:${process.env.EMAJHON_PASS}@cluster0.vbiac.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-const run = async() => {
+const run = async () => {
     try {
         await client.connect();
         const productCollection = client.db('emaJhon').collection('product');
 
-        app.get('/product', async(req, res) => {
+        app.get('/product', async (req, res) => {
             const query = {};
             const cursor = productCollection.find(query)
             const products = await cursor.toArray()
             res.send(products)
+        })
+
+        app.get('/productCOunt', async (req, res) => {
+            const query = {}
+            const cursor = productCollection.find(query)
+            const count = await cursor.count()
+            // res.json(count)
+            res.send({count})
         })
     }
     finally {
