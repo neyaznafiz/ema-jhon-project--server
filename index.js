@@ -22,9 +22,21 @@ const run = async () => {
         const productCollection = client.db('emaJhon').collection('product');
 
         app.get('/product', async (req, res) => {
+            // console.log('quert', req.query);
+            const page = parseInt(req.query.page)
+            const size = parseInt(req.query.size)
+
             const query = {};
             const cursor = productCollection.find(query)
-            const products = await cursor.toArray()
+
+            let products
+            if (page || size) {
+                products = await cursor.skip(page*size).limit(size).toArray()
+            }
+            else{
+                products = await cursor.toArray()
+            }
+
             res.send(products)
         })
 
@@ -33,7 +45,7 @@ const run = async () => {
             const cursor = productCollection.find(query)
             const count = await cursor.count()
             // res.json(count)
-            res.send({count})
+            res.send({ count })
         })
     }
     finally {
