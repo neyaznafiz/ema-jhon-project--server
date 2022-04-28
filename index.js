@@ -40,7 +40,7 @@ const run = async () => {
             res.send(products)
         })
 
-        app.get('/productCOunt', async (req, res) => {
+        app.get('/productCount', async (req, res) => {
             // const query = {}
             // const cursor = productCollection.find(query)
             // const count = await cursor.count()
@@ -53,11 +53,13 @@ const run = async () => {
         app.post('/productByKeys', async (req, res) => {
             const keys = req.body
             const ids=keys.map(id => ObjectId(id))
+          
             const query = {_id: {$in: ids}}
             const cursor = productCollection.find(query)
             const products = await cursor.toArray()
+            console.log(products);
             res.send(products)
-            console.log(keys);
+            // console.log(keys);
         })
 
     }
