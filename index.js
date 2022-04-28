@@ -59,7 +59,7 @@ const run = async () => {
             const products = await cursor.toArray()
             console.log(products);
             res.send(products)
-            // console.log(keys);
+            
         })
 
     }
